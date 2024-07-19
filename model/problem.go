@@ -5,6 +5,8 @@ import "fmt"
 /*
 Represents a problem in Codeforces.
 
+Field	Description
+-------------------
 contestId	Integer. Can be absent. Id of the contest, containing the problem.
 problemsetName	String. Can be absent. Short name of the problemset the problem belongs to.
 index	String. Usually, a letter or letter with digit(s) indicating the problem index in a contest.
