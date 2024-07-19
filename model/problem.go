@@ -1,3 +1,5 @@
+package models
+
 /*
 Represents a problem in Codeforces.
 
@@ -12,12 +14,12 @@ tags	String list. Problem tags.
 */
 
 type Problem struct {
-	contestId int
-	problemsetName string
-	index string
-	name string
-	type string
-	points float64
-	rating int
-	tags []string
+	ContestId      int      `json:"contestId"`
+	ProblemsetName string   `json:"problemsetName"`
+	Index          string   `json:"index"`
+	Name           string   `json:"name"`
+	Type           string   `json:"type"`
+	Points         float64  `json:"points"`
+	Rating         int      `json:"rating"`
+	Tags           []string `json:"tags"`
 }
