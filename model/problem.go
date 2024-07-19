@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 /*
 Represents a problem in Codeforces.
 
@@ -24,4 +26,8 @@ type Problem struct {
 	Rating         int      `json:"rating"`
 	Tags           []string `json:"tags"`
 	SolvedCount    int      `json:"solvedCount"`
+}
+
+func (problem Problem) Id() string {
+	return fmt.Sprintf("%d-%s", problem.ContestId, problem.Index)
 }

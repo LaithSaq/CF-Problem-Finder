@@ -7,6 +7,6 @@ import (
 
 func main() {
 	problems := services.FetchAllProblems()
-	fmt.Print(problems[0])
+	fmt.Print(problems[0].Id())
 
 }
