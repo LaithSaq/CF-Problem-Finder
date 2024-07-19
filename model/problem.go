@@ -31,5 +31,5 @@ type Problem struct {
 }
 
 func (problem Problem) Id() string {
-	return fmt.Sprintf("%d-%s", problem.ContestId, problem.Index)
+	return fmt.Sprintf("%d/%s", problem.ContestId, problem.Index)
 }
