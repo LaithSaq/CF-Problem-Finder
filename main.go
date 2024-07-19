@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	problem := services.FetchProblems()
-	fmt.Println(problem)
+	problems := services.FetchAllProblems()
+	fmt.Print(problems[0])
+
 }

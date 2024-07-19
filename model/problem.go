@@ -11,6 +11,7 @@ type	Enum: PROGRAMMING, QUESTION.
 points	Floating point number. Can be absent. Maximum amount of points for the problem.
 rating	Integer. Can be absent. Problem rating (difficulty).
 tags	String list. Problem tags.
+solvedCount	Integer. Number of users, who solved the problem. [From the ProblemStatistics object]
 */
 
 type Problem struct {
@@ -22,4 +23,5 @@ type Problem struct {
 	Points         float64  `json:"points"`
 	Rating         int      `json:"rating"`
 	Tags           []string `json:"tags"`
+	SolvedCount    int      `json:"solvedCount"`
 }
