@@ -11,7 +11,13 @@ func FetchAllProblems() []models.Problem {
 	resp, _ := http.Get("https://codeforces.com/api/problemset.problems")
 	jsonData := map[string]interface{}{}
 	json.NewDecoder(resp.Body).Decode(&jsonData)
-	problemInterfaces := jsonData["result"].(map[string]interface{})["problems"].([]interface{})
+	problemInterfaces, ok := jsonData["result"].(map[string]interface{})["problems"].([]interface{})
+
+	if !ok {
+		fmt.Println("Error fetching all problems")
+		return []models.Problem{}
+	}
+
 	var problems []models.Problem
 
 	for _, problemInterface := range problemInterfaces {
@@ -34,10 +40,12 @@ func FetchSolvedProblemsForUser(handle string) []models.Problem {
 	jsonData := map[string]interface{}{}
 	json.NewDecoder(resp.Body).Decode(&jsonData)
 	submissionInterfaces, ok := jsonData["result"].([]interface{})
+
 	if !ok {
 		fmt.Printf("Error fetching submissions for user %s\n", handle)
 		return []models.Problem{}
 	}
+
 	var solvedProblems []models.Problem
 
 	for _, submissionInterface := range submissionInterfaces {
