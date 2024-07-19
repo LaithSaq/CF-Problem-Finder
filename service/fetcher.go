@@ -29,6 +29,28 @@ func FetchAllProblems() []models.Problem {
 	return problems
 }
 
+func FetchSolvedProblemsForUser(handle string) []models.Problem {
+	resp, _ := http.Get(fmt.Sprintf("https://codeforces.com/api/user.status?handle=%s", handle))
+	jsonData := map[string]interface{}{}
+	json.NewDecoder(resp.Body).Decode(&jsonData)
+	submissionInterfaces, ok := jsonData["result"].([]interface{})
+	if !ok {
+		fmt.Printf("Error fetching submissions for user %s\n", handle)
+		return []models.Problem{}
+	}
+	var solvedProblems []models.Problem
+
+	for _, submissionInterface := range submissionInterfaces {
+		submission := models.Submission{}
+		parseInterfaceIntoObject(submissionInterface, &submission)
+		if submission.Verdict == "OK" {
+			solvedProblems = append(solvedProblems, submission.Problem)
+		}
+	}
+
+	return solvedProblems
+}
+
 func parseInterfaceIntoObject(interfaceToParse interface{}, object interface{}) error {
 	interfaceJSON, err := json.Marshal(interfaceToParse)
 	if err != nil {
