@@ -4,6 +4,7 @@ import (
 	models "cf-problem-finder/model"
 	services "cf-problem-finder/service"
 	"fmt"
+	"sort"
 )
 
 func main() {
@@ -29,16 +30,10 @@ func main() {
 
 	fmt.Println(len(unsolvedProblems))
 
-	// allProblemsSet := make(map[string]bool)
-	// for _, problem := range allProblems {
-	// 	allProblemsSet[problem.Id()] = true
-	// }
+	sort.Slice(unsolvedProblems, func(i, j int) bool {
+		return unsolvedProblems[i].SolvedCount > unsolvedProblems[j].SolvedCount
+	})
 
-	// for _, problem := range mySolvedProblems {
-	// 	if !allProblemsSet[problem.Id()] {
-	// 		fmt.Println(problem.Id())
-	// 		// TODO: How to handle gym problems?
-	// 	}
-	// }
+	fmt.Println(unsolvedProblems[2])
 
 }
