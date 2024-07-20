@@ -28,4 +28,17 @@ func main() {
 	}
 
 	fmt.Println(len(unsolvedProblems))
+
+	// allProblemsSet := make(map[string]bool)
+	// for _, problem := range allProblems {
+	// 	allProblemsSet[problem.Id()] = true
+	// }
+
+	// for _, problem := range mySolvedProblems {
+	// 	if !allProblemsSet[problem.Id()] {
+	// 		fmt.Println(problem.Id())
+	// 		// TODO: How to handle gym problems?
+	// 	}
+	// }
+
 }

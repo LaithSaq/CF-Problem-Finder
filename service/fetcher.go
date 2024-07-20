@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+// Remark: Gym problems are NOT included
+// Remark: Combined rounds are still problematic to link (e.g. 1972 and 1967)
 func FetchAllProblems() []models.Problem {
 	resp, _ := http.Get("https://codeforces.com/api/problemset.problems")
 	jsonData := map[string]interface{}{}
@@ -35,6 +37,7 @@ func FetchAllProblems() []models.Problem {
 	return problems
 }
 
+// Remark: Gym problems are included
 func FetchSolvedProblemsForUser(handle string) []models.Problem {
 	resp, _ := http.Get(fmt.Sprintf("https://codeforces.com/api/user.status?handle=%s", handle))
 	jsonData := map[string]interface{}{}
