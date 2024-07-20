@@ -9,13 +9,13 @@ import (
 
 func main() {
 	allProblems := services.FetchAllProblems()
-	fmt.Println(len(allProblems))
+	fmt.Printf("# of all Problems:\t\t%d\n", len(allProblems))
 
 	userHandles := []string{"NapSaq", "mrmoon"}
 
 	solvedProblems := services.FetchSolvedProblemsForUsers(userHandles)
 
-	fmt.Println(len(solvedProblems))
+	fmt.Printf("# of solved Problems:\t\t%d\n", len(solvedProblems))
 
 	unsolvedProblems := []models.Problem{}
 	for _, problem := range allProblems {
@@ -24,7 +24,7 @@ func main() {
 		}
 	}
 
-	fmt.Println(len(unsolvedProblems))
+	fmt.Printf("# of unsolved Problems:\t\t%d\n", len(unsolvedProblems))
 
 	sort.Slice(unsolvedProblems, func(i, j int) bool {
 		return unsolvedProblems[i].SolvedCount > unsolvedProblems[j].SolvedCount
