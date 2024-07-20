@@ -7,16 +7,25 @@ import (
 	"sort"
 )
 
-var TargetRatings = []int{800, 1000, 1200, 1400, 1600, 1900}
+// var TargetRatings = []int{800, 1000, 1200, 1400, 1600, 1900}
 
 func main() {
+	userHandles := services.ReadUserHandles()
+	fmt.Printf("Succesfully parced %d users!\n", len(userHandles))
+
+	TargetRatings := services.ReadTargetRatings()
+	fmt.Printf("Succesfully parced %d target ratings!\n", len(TargetRatings))
+	fmt.Printf("Finding problems rated at: %v\n", TargetRatings)
+
+	// assert that len(TargetRatings) > 0
+	if len(TargetRatings) == 1 && TargetRatings[0] == 0 {
+		panic("No proper target ratings found!")
+	}
+
 	allProblems := services.FetchAllProblems()
 	fmt.Printf("# of all Problems:\t\t%d\n", len(allProblems))
 
-	userHandles := []string{"NapSaq", "mrmoon"}
-
 	solvedProblems := services.FetchSolvedProblemsForUsers(userHandles)
-
 	fmt.Printf("# of solved Problems:\t\t%d\n", len(solvedProblems))
 
 	unsolvedProblems := []models.Problem{}
@@ -25,7 +34,6 @@ func main() {
 			unsolvedProblems = append(unsolvedProblems, problem)
 		}
 	}
-
 	fmt.Printf("# of unsolved Problems:\t\t%d\n", len(unsolvedProblems))
 
 	sort.Slice(unsolvedProblems, func(i, j int) bool {
@@ -50,9 +58,8 @@ func main() {
 	fmt.Printf("Successfully picked %d Problems!\n", len(pickedProblems))
 	for _, rating := range TargetRatings {
 		problem := pickedProblems[rating]
-		fmt.Printf("%d - Problem %s: %s\n", rating, problem.Id(), problem.Name)
+		fmt.Printf("%d - Problem %s : %s\n", rating, problem.Id(), problem.Name)
 		fmt.Println(problem)
 		fmt.Println("---")
 	}
-
 }

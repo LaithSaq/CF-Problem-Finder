@@ -5,7 +5,43 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
+	"strconv"
+	"strings"
 )
+
+// reads user handles from a file
+func ReadUserHandles() []string {
+	fileBytes, err := os.ReadFile("users.txt")
+	if err != nil {
+		fmt.Println("Error reading file")
+		panic(err)
+	}
+	data := string(fileBytes)
+	data = strings.Trim(data, "\r\n")
+	handles := strings.Split(data, "\r\n")
+
+	return handles
+}
+
+func ReadTargetRatings() []int {
+	fileBytes, err := os.ReadFile("ratings.txt")
+	if err != nil {
+		fmt.Println("Error reading file")
+		panic(err)
+	}
+	data := string(fileBytes)
+	data = strings.Trim(data, "\r\n")
+	ratings := strings.Split(data, "\r\n")
+
+	var targetRatings []int
+	for _, rating := range ratings {
+		targetRating, _ := strconv.Atoi(rating)
+		targetRatings = append(targetRatings, targetRating)
+	}
+
+	return targetRatings
+}
 
 // Remark: Gym problems are NOT included (maybe consider custom `problemsetName`s from handles!)
 // Remark: Combined rounds are still problematic to link (e.g. 1972 and 1967)
