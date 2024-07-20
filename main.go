@@ -55,11 +55,15 @@ func main() {
 			break
 		}
 	}
-	fmt.Printf("Successfully picked %d Problems!\n", len(pickedProblems))
+	fmt.Printf("Successfully picked %d/%d Problems!\n", len(pickedProblems), len(TargetRatings))
 	for _, rating := range TargetRatings {
-		problem := pickedProblems[rating]
-		fmt.Printf("%d - Problem %s : %s\n", rating, problem.Id(), problem.Name)
-		fmt.Println(problem)
+		problem, found := pickedProblems[rating]
+		if !found {
+			fmt.Printf("%d - No problem found!\n", rating)
+		} else {
+			fmt.Printf("%d - Problem %s : %s\n", rating, problem.Id(), problem.Name)
+			fmt.Println(problem)
+		}
 		fmt.Println("---")
 	}
 }
