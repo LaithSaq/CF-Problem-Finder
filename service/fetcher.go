@@ -37,8 +37,21 @@ func FetchAllProblems() []models.Problem {
 	return problems
 }
 
+func FetchSolvedProblemsForUsers(handles []string) map[string]bool {
+	solvedProblems := make(map[string]bool)
+
+	for _, handle := range handles {
+		userSolvedProblems := fetchSolvedProblemsForUser(handle)
+		for _, problem := range userSolvedProblems {
+			solvedProblems[problem.Id()] = true
+		}
+	}
+
+	return solvedProblems
+}
+
 // Remark: Only Public Gym problems are included
-func FetchSolvedProblemsForUser(handle string) []models.Problem {
+func fetchSolvedProblemsForUser(handle string) []models.Problem {
 	resp, _ := http.Get(fmt.Sprintf("https://codeforces.com/api/user.status?handle=%s", handle))
 	jsonData := map[string]interface{}{}
 	json.NewDecoder(resp.Body).Decode(&jsonData)

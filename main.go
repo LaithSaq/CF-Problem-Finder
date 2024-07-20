@@ -11,13 +11,9 @@ func main() {
 	allProblems := services.FetchAllProblems()
 	fmt.Println(len(allProblems))
 
-	mySolvedProblems := services.FetchSolvedProblemsForUser("NapSaq")
-	fmt.Println(len(mySolvedProblems))
+	userHandles := []string{"NapSaq", "mrmoon"}
 
-	solvedProblems := make(map[string]bool)
-	for _, problem := range mySolvedProblems {
-		solvedProblems[problem.Id()] = true
-	}
+	solvedProblems := services.FetchSolvedProblemsForUsers(userHandles)
 
 	fmt.Println(len(solvedProblems))
 
